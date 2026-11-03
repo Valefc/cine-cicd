@@ -32,6 +32,10 @@ COLUMNAS_OBLIGATORIAS = ("imdb", "title", "year", "budget", "domgross")
 # Valores faltantes: vacío, NA y #N/A (este último aparece en el CSV original)
 MISSING = {"", "NA", "#N/A"}
 
+PATRON_IMDB = re.compile(r"tt[0-9]+")  # p. ej. tt1711425
+ANIO_MINIMO = 1888  # primera película conocida; nada anterior es plausible
+ANIO_MAXIMO = datetime.now(timezone.utc).year + 1  # permite estrenos próximos
+
 URL_FUENTE = "https://github.com/fivethirtyeight/data/tree/master/bechdel"
 URL_LICENCIA = "https://creativecommons.org/licenses/by/4.0/"
 AVISO = "Copia educativa: contiene modificaciones simuladas"
@@ -94,6 +98,10 @@ def validar_lineas(lineas):
             raise ErrorValidacion(fila, "imdb", "identificador vacío")
         if imdb in vistos:
             raise ErrorValidacion(fila, "imdb", f"identificador duplicado ({imdb})")
+        if not PATRON_IMDB.fullmatch(imdb):
+            raise ErrorValidacion(
+                fila, "imdb", f"formato inválido '{imdb}' (debe ser 'tt' seguido de dígitos)"
+            )
         vistos.add(imdb)
 
         titulo = html.unescape(registro["title"]).strip()
@@ -103,6 +111,10 @@ def validar_lineas(lineas):
         texto_anio = registro["year"].strip()
         if not re.fullmatch(r"[0-9]+", texto_anio) or int(texto_anio) <= 0:
             raise ErrorValidacion(fila, "year", f"'{registro['year']}' no es un entero positivo")
+        if not ANIO_MINIMO <= int(texto_anio) <= ANIO_MAXIMO:
+            raise ErrorValidacion(
+                fila, "year", f"{texto_anio} fuera del rango permitido ({ANIO_MINIMO}-{ANIO_MAXIMO})"
+            )
 
         peliculas.append({
             "imdb": imdb,

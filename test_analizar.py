@@ -85,6 +85,18 @@ class PruebasValidacion(unittest.TestCase):
         self.assertRechaza(csv_de("0,tt1,A,1,1,x"), "year")
         self.assertRechaza(csv_de("-5,tt1,A,1,1,x"), "year")
 
+    def test_rechaza_imdb_con_formato_invalido(self):
+        for malo in ("1711425", "xx123", "tt", "tt12a", "TT123"):
+            with self.subTest(imdb=malo):
+                self.assertRechaza(csv_de(f"2000,{malo},A,1,1,x"), "imdb")
+
+    def test_rechaza_year_fuera_de_rango(self):
+        self.assertRechaza(csv_de("1500,tt1,A,1,1,x"), "year")
+        self.assertRechaza(csv_de(f"{analizar.ANIO_MAXIMO + 1},tt1,A,1,1,x"), "year")
+        # Los límites son válidos
+        analizar.validar_lineas(csv_de(f"{analizar.ANIO_MINIMO},tt1,A,1,1,x"))
+        analizar.validar_lineas(csv_de(f"{analizar.ANIO_MAXIMO},tt1,A,1,1,x"))
+
     def test_rechaza_numero_incorrecto_de_campos(self):
         self.assertRechaza(csv_de("2000,tt1,A,1"), "domgross")  # faltan campos
         self.assertRechaza(csv_de("2000,tt1,A,1,1,x,extra"), "(fila)")  # sobran
