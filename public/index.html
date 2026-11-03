@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Informe de películas (Bechdel) - CI/CD</title>
+<style>
+  body { font-family: system-ui, Arial, sans-serif; max-width: 960px; margin: 0 auto; padding: 1.5rem; color: #1b1b1b; line-height: 1.5; }
+  h1 { margin-bottom: .2rem; }
+  .aviso { background: #fff3cd; border-left: 4px solid #e0a800; padding: .6rem 1rem; margin: 1rem 0; }
+  .tarjetas { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: .8rem; margin: 1rem 0; }
+  .tarjeta { border: 1px solid #ccc; border-radius: 8px; padding: .8rem; }
+  .tarjeta strong { display: block; font-size: 1.4rem; }
+  .tarjeta small { color: #555; }
+  .fila-barra { display: grid; grid-template-columns: 220px 1fr 120px; gap: .5rem; align-items: center; margin: .25rem 0; font-size: .9rem; }
+  .pista { background: #eee; border-radius: 4px; height: 16px; display: block; }
+  .barra { background: #2b6cb0; height: 16px; border-radius: 4px; display: block; }
+  .valor { text-align: right; font-variant-numeric: tabular-nums; }
+  table { border-collapse: collapse; width: 100%; margin: .5rem 0; }
+  th, td { border: 1px solid #ccc; padding: .35rem .5rem; text-align: left; }
+  th { background: #f2f2f2; }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  footer { margin-top: 2rem; font-size: .9rem; color: #444; border-top: 1px solid #ccc; padding-top: 1rem; }
+  @media (max-width: 640px) { .fila-barra { grid-template-columns: 1fr; } .valor { text-align: left; } }
+</style>
+</head>
+<body>
+<h1>Informe de películas (Bechdel)</h1>
+<p>Estudiante: <strong>Valeria Figueroa Camacho</strong></p>
+<div class="aviso"><strong>Copia educativa: contiene modificaciones simuladas</strong>. Los cambios de esta práctica son simulaciones y no representan correcciones de la investigación original.</div>
+
+<section class="tarjetas">
+  <div class="tarjeta"><small>Total de películas</small><strong>1794</strong></div>
+  <div class="tarjeta"><small>Suma de domgross disponible (USD nominales, muestra histórica)</small><strong>122,847,649,792</strong></div>
+  <div class="tarjeta"><small>Media del presupuesto disponible (USD nominales, 1794 películas con dato)</small><strong>44,826,462.61</strong></div>
+  <div class="tarjeta"><small>Películas con ingreso (domgross) faltante</small><strong>17</strong></div>
+</section>
+
+<p>Nota: <code>domgross</code> son ingresos de taquilla en Estados Unidos, en dólares nominales del año de estreno. Las sumas corresponden a esta muestra histórica y no son una comparación ajustada por inflación. Los faltantes (NA) no se cuentan como cero.</p>
+
+<h2>Las diez películas con mayor domgross</h2>
+<div role="img" aria-label="Gráfico de barras de las diez películas con mayor domgross">
+<div class="fila-barra"><span class="etiqueta">Avatar (2009)</span><span class="pista"><span class="barra" style="width:100.0%"></span></span><span class="valor">760,507,625</span></div>
+<div class="fila-barra"><span class="etiqueta">Titanic (1997)</span><span class="pista"><span class="barra" style="width:86.6%"></span></span><span class="valor">658,672,302</span></div>
+<div class="fila-barra"><span class="etiqueta">The Dark Knight (2008)</span><span class="pista"><span class="barra" style="width:70.1%"></span></span><span class="valor">533,345,358</span></div>
+<div class="fila-barra"><span class="etiqueta">Star Wars: Episode I - The Phantom Menace (1999)</span><span class="pista"><span class="barra" style="width:62.4%"></span></span><span class="valor">474,544,677</span></div>
+<div class="fila-barra"><span class="etiqueta">Star Wars (1977)</span><span class="pista"><span class="barra" style="width:60.6%"></span></span><span class="valor">460,998,007</span></div>
+<div class="fila-barra"><span class="etiqueta">The Dark Knight Rises (2012)</span><span class="pista"><span class="barra" style="width:58.9%"></span></span><span class="valor">448,139,099</span></div>
+<div class="fila-barra"><span class="etiqueta">Shrek 2 (2004)</span><span class="pista"><span class="barra" style="width:58.0%"></span></span><span class="valor">441,226,247</span></div>
+<div class="fila-barra"><span class="etiqueta">E.T.: The Extra-Terrestrial (1982)</span><span class="pista"><span class="barra" style="width:57.2%"></span></span><span class="valor">435,110,554</span></div>
+<div class="fila-barra"><span class="etiqueta">The Hunger Games: Catching Fire (2013)</span><span class="pista"><span class="barra" style="width:55.8%"></span></span><span class="valor">424,088,260</span></div>
+<div class="fila-barra"><span class="etiqueta">Pirates of the Caribbean: Dead Man&#x27;s Chest (2006)</span><span class="pista"><span class="barra" style="width:55.7%"></span></span><span class="valor">423,315,812</span></div>
+</div>
+
+<h2>Primeras diez filas del CSV (orden original)</h2>
+<table>
+<thead><tr><th>imdb</th><th>title</th><th>year</th><th>budget (USD)</th><th>domgross (USD)</th></tr></thead>
+<tbody>
+<tr><td>tt1711425</td><td>21 &amp; Over</td><td>2013</td><td class="num">13,000,000</td><td class="num">25,682,380</td></tr>
+<tr><td>tt1343727</td><td>Dredd 3D</td><td>2012</td><td class="num">45,000,000</td><td class="num">13,414,714</td></tr>
+<tr><td>tt2024544</td><td>12 Years a Slave</td><td>2013</td><td class="num">20,000,000</td><td class="num">53,107,035</td></tr>
+<tr><td>tt1272878</td><td>2 Guns</td><td>2013</td><td class="num">61,000,000</td><td class="num">75,612,460</td></tr>
+<tr><td>tt0453562</td><td>42</td><td>2013</td><td class="num">40,000,000</td><td class="num">95,020,213</td></tr>
+<tr><td>tt1335975</td><td>47 Ronin</td><td>2013</td><td class="num">225,000,000</td><td class="num">38,362,475</td></tr>
+<tr><td>tt1606378</td><td>A Good Day to Die Hard</td><td>2013</td><td class="num">92,000,000</td><td class="num">67,349,198</td></tr>
+<tr><td>tt2194499</td><td>About Time</td><td>2013</td><td class="num">12,000,000</td><td class="num">15,323,921</td></tr>
+<tr><td>tt1814621</td><td>Admission</td><td>2013</td><td class="num">13,000,000</td><td class="num">18,007,317</td></tr>
+<tr><td>tt1815862</td><td>After Earth</td><td>2013</td><td class="num">130,000,000</td><td class="num">60,522,097</td></tr>
+</tbody>
+</table>
+
+<footer>
+  <p>Datos: <a href="https://github.com/fivethirtyeight/data/tree/master/bechdel">FiveThirtyEight, conjunto Bechdel</a>. Licencia de datos:
+  <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Atribución: FiveThirtyEight.</p>
+  <p>Copia educativa: contiene modificaciones simuladas.</p>
+  <p>Generado: 2026-11-03 21:11:40 UTC | Commit: <code>local</code></p>
+</footer>
+</body>
+</html>
